@@ -13,11 +13,18 @@ import std;
 
 #pragma message(MessageText)
 
-void seminar_stl_introduction();
+extern void seminar_stl_introduction();
+
+extern void tueWas();
 
 int main()
 {
     std::println(MessageText);
+
+    //tueWas();
+    //tueWas();
+    //tueWas();
+    //return 0;
 
     // main entry points code snippets
     try
@@ -25,7 +32,7 @@ int main()
         // seminar_stl_introduction();
 
         //main_accumulate();
-        main_algorithms();
+        //main_algorithms();
         //main_all_of_any_of_none_of();
         //main_allocator();
         //main_any();
@@ -108,7 +115,7 @@ int main()
         //main_type_erasure();
         //main_type_erasure_bookstore();
         //main_type_traits();
-        //main_unique_ptr();
+        main_unique_ptr();
         //main_variadic_templates_introduction();
         //main_variadic_templates_working_on_every_argument();
         //main_variadic_templates_sum_of_sums();

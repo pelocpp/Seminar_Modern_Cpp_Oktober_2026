@@ -7,6 +7,8 @@ module modern_cpp:algorithms;
 import std;
 import scoped_timer;
 
+int g_counter = 0;
+
 namespace Algorithms {
 
     // =================================================================================

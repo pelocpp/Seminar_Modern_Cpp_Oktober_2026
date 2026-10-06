@@ -63,8 +63,13 @@ namespace UniquePointerGeneral {
 
     static std::unique_ptr<int> loadUniquePointer()
     {
+        std::unique_ptr<int> ptr2;
+
         std::unique_ptr<int> ptr{ std::make_unique<int>(100) };
-        return ptr;
+
+        return ptr;  // Bei Rückgabe / return:
+                     // Der COMPILER KANN DAS AM BESTEN !!!
+                     // Don't touch this statement
     }
 
     static void storeUniquePointer(std::unique_ptr<int>& ptr)
@@ -101,7 +106,7 @@ namespace UniquePointerGeneral {
     static void test_02()
     {
         // retrieving a unique pointer from a function
-        std::unique_ptr<int> ptr{ loadUniquePointer() };
+        std::unique_ptr<int> ptr = loadUniquePointer();
         std::println("*ptr:    {}", *ptr);
 
         // provide a function with a unique pointer: who owns the pointer now?

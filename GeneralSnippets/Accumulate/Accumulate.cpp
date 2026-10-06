@@ -6,6 +6,16 @@ module modern_cpp:accumulate;
 
 import std;
 
+// static int g_counter = 0;   // global, ABER NUR IN DIESER DATEI
+
+/*static*/ void tueWas()
+{
+    static int g_counter = 0;
+
+    ++g_counter;
+    std::println("{}", g_counter);
+}
+
 namespace AlgorithmAccumulate {
 
     static std::string toString(std::vector<std::string> const& vec) {

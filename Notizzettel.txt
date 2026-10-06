@@ -258,3 +258,35 @@ Viele andere Sprachen:   for_each
 for ( typ n : container )                   // for_each
 
 for ( ; ; )
+
+===========================================================
+
+Dynamische Variablen:
+
+new
+
+Vorteile: Ich reserviere Daten genau dann, wenn ich sie brauche ...
+
+Issue:   Muss sie freigeben, wenn ich sie nicht mehr brauche..
+
+Problem:  Zur Freigabe : Adresse / Pointer
+
+Dynamische Variablen  ==> new ==> POINTER:  Typ * 
+
+Referenz:  Um Kopien zu vermeiden (Original: Global // Stack)
+
+Problem:  delete:  Kann man  vergessen.
+
+Projektphase: Suche nach fehlenden deletes:  Death March
+
+Modern C++:  Nachricht  ==> Don't use new / delete.
+
+Wie anders:  Nachricht  ==> Use Smart Pointer
+
+
+
+
+
+
+
+
