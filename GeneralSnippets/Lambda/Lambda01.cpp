@@ -111,7 +111,7 @@ static void lambda_02_02()
 
 static void lambda_02()
 {
-    lambda_02_01();
+   // lambda_02_01();
     lambda_02_02();
 }
 
@@ -223,7 +223,7 @@ static void lambda_05()
         else {
             return std::string{ "Hello World" };  // std::string
         }
-        };
+    };
 
     auto value{ getValue(false) };
 }
@@ -233,16 +233,24 @@ static void lambda_05()
 
 static void lambda_06()
 {
-    std::size_t value{ 123 };
+    //auto value = 10;
 
-    auto increment = [=]() mutable -> std::size_t {
+    auto increment = [ value = 10 ]() mutable -> int {
 
         ++value;
         return value;
     };
 
-    value = increment();
-    std::println("{}", value);
+  //  value = 99;
+
+    auto result = increment();
+    std::println("{}", result);
+
+    result = increment();
+    std::println("{}", result);
+
+    result = increment();
+    std::println("{}", result);
 }
 
 // =====================================================================================
@@ -345,23 +353,29 @@ static auto helper_a() {
     int n{ 1 };
     int m{ 2 };
 
-    auto lambda{ [=] { std::println("Copy:      {} {}", n, m); } };
+    auto lambda{ [=] { 
+        std::println("Copy:      {} {}", n, m); } 
+    };
+    
     return lambda;
 }
 
 static auto helper_b() {
 
-    int n{ 1 };
+    int n{ 1 };   // Closure
     int m{ 2 };
 
-    auto lambda{ [&] { std::println("Reference: {} {}", n, m); } };
-    return lambda;             // I would't do this never ever :-)
+    auto lambda{ [&] { 
+        std::println("Reference: {} {}", n, m); }
+    };
+    
+    return lambda;                                    // I would't do this never ever :-)
 }
 
 static void lambda_10()
 {
-    auto outerLambda1{ helper_a() };
-    auto outerLambda2{ helper_b() };
+    auto outerLambda1 = helper_a();
+    auto outerLambda2 = helper_b();
 
     outerLambda1();
     outerLambda2();
@@ -558,22 +572,22 @@ static void lambda_16()
 
 void main_lambdas()
 {
-    lambda_01();
-    lambda_02();
-    lambda_03();
-    lambda_04();
-    lambda_05();
-    lambda_06();
-    lambda_07();
-    lambda_08();
-    lambda_09();
+    //lambda_01();
+    //lambda_02();
+    //lambda_03();
+    //lambda_04();
+    //lambda_05();
+    //lambda_06();
+    //lambda_07();
+    //lambda_08();
+    //lambda_09();
     lambda_10();
-    lambda_11();
-    lambda_12();
-    lambda_13();
-    lambda_14();
-    lambda_15();
-    lambda_16();
+    //lambda_11();
+    //lambda_12();
+    //lambda_13();
+    //lambda_14();
+    //lambda_15();
+    //lambda_16();
 }
 
 // =====================================================================================

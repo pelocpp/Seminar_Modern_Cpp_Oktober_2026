@@ -17,7 +17,14 @@ namespace Algorithms {
     static constexpr int VectorSize = 10'000'000;         // debug
     static constexpr int ArraySize = 10'000'000;          // debug
 #else
-    static constexpr int VectorSize = 100'000'000;        // release
+    //static constexpr int VectorSize = 10'000'000;         // debug
+    //static constexpr int ArraySize = 10'000'000;          // debug
+
+    //static constexpr int VectorSize = 100'000'000;        // release
+    //static constexpr int ArraySize = 50'000'000;          // release
+
+
+    static constexpr int VectorSize = 50'000'000;        // release
     static constexpr int ArraySize = 50'000'000;          // release
 #endif
 
@@ -26,6 +33,12 @@ namespace Algorithms {
     std::array<double, ArraySize> source;
     std::array<double, ArraySize> target;
 }
+
+//static void func()
+//{
+//    // No go
+//    std::array<double, 100000000> values2{};
+//}
 
 namespace Algorithms {
 
@@ -208,7 +221,7 @@ namespace Algorithms {
             ScopedTimer watch{};
 
             std::fill(
-                std::execution::par,
+                std::execution::par,   // ab C++ 17 / 20
                 values.begin(),
                 values.end(),
                 123.0
@@ -786,21 +799,22 @@ namespace Algorithms {
 
 void main_algorithms()
 {
-    // initialization of std::vector or std::array with a constant value
+    //// initialization of std::vector or std::array with a constant value
     Algorithms::Initialization_Vector_Constant_Value::test_vector_constant_initialization();
+    std::println();
     Algorithms::Initialization_Array_Constant_Value::test_array_constant_initialization();
 
-    // initialization of std::vector or std::array with a a varying value
-    Algorithms::Initialization_Vector_Varying_Value::test_vector_varying_initialization();
-    Algorithms::Initialization_Array_Varying_Value::test_array_varying_initialization();
+    //// initialization of std::vector or std::array with a a varying value
+    //Algorithms::Initialization_Vector_Varying_Value::test_vector_varying_initialization();
+    //Algorithms::Initialization_Array_Varying_Value::test_array_varying_initialization();
 
-    // using algorithms for copying ranges (std::vector or std::array)
-    Algorithms::Copying_Vectors::test_vector_copying();
-    Algorithms::Copying_Arrays::test_array_copying();
+    //// using algorithms for copying ranges (std::vector or std::array)
+    //Algorithms::Copying_Vectors::test_vector_copying();
+    //Algorithms::Copying_Arrays::test_array_copying();
 
-    // using algorithms for elementary calculations (std::vector or std::array)
-    Algorithms::Elementary_Calculations_With_Vectors::test_vector_sum_calculation();
-    Algorithms::Elementary_Calculations_With_Arrays::test_array_sum_calculation();
+    //// using algorithms for elementary calculations (std::vector or std::array)
+    //Algorithms::Elementary_Calculations_With_Vectors::test_vector_sum_calculation();
+    //Algorithms::Elementary_Calculations_With_Arrays::test_array_sum_calculation();
 }
 
 // =====================================================================================

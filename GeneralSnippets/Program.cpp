@@ -13,6 +13,8 @@ import std;
 
 #pragma message(MessageText)
 
+void seminar_stl_introduction();
+
 int main()
 {
     std::println(MessageText);
@@ -20,8 +22,10 @@ int main()
     // main entry points code snippets
     try
     {
+        // seminar_stl_introduction();
+
         //main_accumulate();
-        //main_algorithms();
+        main_algorithms();
         //main_all_of_any_of_none_of();
         //main_allocator();
         //main_any();
@@ -61,7 +65,7 @@ int main()
         //main_input_output_streams();  
         //main_invoke();
         //main_is_transparent();
-        main_lambdas();
+        //main_lambdas();
         //main_lambda_and_closure();
         //main_lambdas_this_closure();
         //main_literals();

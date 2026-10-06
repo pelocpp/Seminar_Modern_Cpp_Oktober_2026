@@ -2,9 +2,9 @@
 // STL Introduction
 // =====================================================================================
 
-
 #include <vector>
 #include <list>
+#include <string>
 #include <deque>
 #include <print>
 #include <algorithm>
@@ -229,6 +229,79 @@ void test_stl_09()
     );
 }
 
+// =====================================================================================
+
+// STL // Praxis
+
+void test_stl_10()
+{
+    std::vector<int> zahlen{ 1, 2, 3 };
+
+    zahlen.resize(10);
+
+    // fill
+    std::fill(
+        zahlen.begin(),
+        zahlen.end(),
+        1
+    );
+
+    // traversieren
+    std::for_each(
+        zahlen.begin(),
+        zahlen.end(),
+        [](auto value) { std::println("{}", value); }
+    );
+
+    // füllen: 1, 2, 3, 4, ...
+    std::generate(
+        zahlen.begin(),
+        zahlen.end(),
+        [start = 0] () mutable -> int { 
+            ++start;
+            return start; 
+        }
+    );
+
+    // suchen: 5
+    std::vector<int>::iterator result = std::find_if(
+        zahlen.begin(),
+        zahlen.end(),
+        [](int value) -> bool { return value == 5;  }
+    );
+
+    if (result == zahlen.end()) {
+        std::println("Not found!");
+    }
+    else {
+        std::println("Found: {}!", *result);
+    }
+
+    // Umwandeln:   int ==> std::string
+    // std::vector<std::string> tabelle (zahlen.size());
+    std::vector<std::string> tabelle;
+
+    //std::transform(
+    //    zahlen.begin(),
+    //    zahlen.end(),
+    //    tabelle.begin(),  // !!! tabelle.operator= 
+    //    [](int value) -> std::string {
+    //        std::string s = std::to_string(value);
+    //        return s;
+    //    }
+    //);
+
+    std::transform(
+        zahlen.begin(),
+        zahlen.end(),
+        std::back_inserter (tabelle), // !!! tabelle.push_back
+        [](int value) -> std::string { 
+            std::string s = std::to_string(value);
+            return s;
+        }
+    );
+}
+
 void seminar_stl_introduction()
 {
     //test_stl_01();
@@ -239,8 +312,12 @@ void seminar_stl_introduction()
     //test_stl_06();
     //test_stl_07();
     //test_stl_08();
-    test_stl_09();
+    //test_stl_09();
+
+    test_stl_10();
 }
+
+
 
 
 // =====================================================================================

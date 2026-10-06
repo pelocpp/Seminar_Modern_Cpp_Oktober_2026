@@ -220,3 +220,41 @@ void test()
 
 ========================================================
 
+auto:
+
+a) Vereinbarung
+
+b) Rückgabetyp
+
+c) Parameter
+
+=======================================
+
+Generische Funktionen
+
+Maschinencode pro Datentyp vorhanden.
+
+==> Why:  Stack Frame
+
+=======================================
+
+STL: Stilistik:
+
+Building Blocks
+
+Hinweis:
+
+discarding return value of function with [[nodiscard]] attribute
+
+
+=============================================================
+
+Performanz der STL
+
+for-Schleife ;)
+
+Viele andere Sprachen:   for_each  
+
+for ( typ n : container )                   // for_each
+
+for ( ; ; )
