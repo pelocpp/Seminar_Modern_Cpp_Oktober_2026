@@ -1,0 +1,222 @@
+===================================================
+
+Moin :)
+
+Seminar "Modern C++"
+
+Trainer: Peter Loos
+
+===================================================
+
+9.00 - 17.00 
+
+Mittagspause:  13 Uhr
+
+===================================================
+
+EMail: peter.loos@gmx.de
+
+Unterlagen:
+
+https://github.com/pelocpp
+
+https://github.com/pelocpp/cpp_modern
+
+===================================================
+
+Was soll es sein ???
+
+Überblick // C++ 11 
+
+Umstieg von "Classic C++" zu "Modern C++"
+
+Vorzeigbares C++  // God Object
+
+Probleme bei Fehlermeldungen
+
+Unterschied Warnung / Fehler (Warning Level) 
+
+Tool Visual C++
+
+Java, Python
+
+===================================================
+
+C++:
+
+2 Optionen für Adressen:
+
+C:      Datentyp Pointer / Adresse
+
+        int* ptr;
+
+		int n = 123;
+
+		ptr = &n;   // Statement
+
+		// Will der Variablen n den Wert 456 zuweisen, ohne n zu verwende
+		*ptr = 456;
+
+C++:    Datentyp Referenz:
+
+        int n = 123;
+
+        int& ri = n;   // Vereinbarung  // ri ist ein ALIAS
+
+		Das referenzierte Objekte HAT EINEN NAMEN
+
+		ri = 456;
+
+C++ 11: Zweiter Referenz Datentyp:
+
+        Für Objekte OHNE Namen.  // Anonyme Objekte
+
+===================================================
+
+// Rvalue / LValue
+==================
+
+Objekt OHNE Namen:
+
+Objekt MIT Namen:
+
+======================================
+
+Wert-Semantik // Referenz-Semantik
+----------------------------------
+
+Java, Python == C++
+
+========================================
+
+
+Beispiel:
+
+..:  0x00000234fb6d76c0   // lokal, am Stack // wird wieder freigegeben
+
+..:  0x00000234fb6d73b0   // im Vektor
+
+
+---
+
+...:  0x00000210576a7ab0
+
+====================================================
+
+Lesbarkeit :)
+
+int + long: long
+
+float + double: double
+
+====================================================
+
+Ästhetik: 
+
+        double d1 = ival;      // Compiles
+00007FF7854FC960  cvtsi2sd    xmm0,dword ptr [ival]  
+00007FF7854FC965  movsd       mmword ptr [d1],xmm0  
+
+==================================================
+
+STL:
+
+Bjarne Stroustrup:   C with Classes
+
+A. Stepanov:         Templates
+
+C++:   Bibliothek
+
+Java:   ArrayList
+
+===========================
+
+Optimierung:
+
+Constant Folding:   4 * 20 ===> 80
+
+Common Subexpression Elimination:   a * b + c
+
+====================================================
+
+STL Container
+
+Überblick:
+
+https://github.com/pelocpp/cpp_clean_performant_secure/blob/master/Clean_Performant_Code/Data_Structures_and_Algorithms/Readme_STL_Container.md#link4
+
+
+== STL Container
+
+== STL Iterator:     Beschreibt eine Position in einem Container
+
+Anderen Programmersprachen: Klassen ====> Methoden
+
+C++:   Verhalten ==> Operatoren.
+
+
+
+Per STL Definition: JEDER STL Container legt 2 Positionen offen:
+
+    Anfang: Methode begin()
+    Ende:   Methode end()
+
+== STL Algorithmus
+
+f 	- 	function object, to be applied to the elements:
+
+A) Freie Funktion
+
+Bei elem. Typen:  Call-by-Copy
+
+	int n = wert;
+00007FF6468C3320  mov         eax,dword ptr [wert]  
+00007FF6468C3326  mov         dword ptr [n],eax  
+
+Bei Objekten:     Call-by-Ref
+
+	int n = wert;
+00007FF6D697A591  mov         rax,qword ptr [wert]  
+00007FF6D697A598  mov         eax,dword ptr [rax]  
+00007FF6D697A59A  mov         dword ptr [n],eax  
+
+B) Aufrufbares Objekt  // Funktor
+
+C) Lambda
+
+Umgangssprache: "Lambda Funktion"
+
+In C++: Ein Lambda ist ein OBJEKT !!!!!!!!!!!!
+
+Syntax
+
+
+Callable Object
+
+Cpp Insights  ==> Andreas Fertig.
+
+Wie sieht ein Lamdba intern aus:
+
+#include <vector>
+#include <print>
+#include <algorithm>
+
+void test()
+{
+  std::vector<int, std::allocator<int> > zahlen = std::vector<int, std::allocator<int> >{std::initializer_list<int>{10, 11, 12}, std::allocator<int>()};
+    
+  class __lambda_12_3
+  {
+    public: 
+    inline void operator() (int wert) const
+    {
+      std::println(std::basic_format_string<char, int &>("Lambda Wert: {}"), wert);
+    }
+
+  };
+  
+  std::for_each(zahlen.begin(), zahlen.end(), __lambda_12_3{});
+}
+
+========================================================
+
