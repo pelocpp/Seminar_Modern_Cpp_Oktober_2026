@@ -105,9 +105,13 @@ namespace IsTransparent {
 
         strings.insert(one);
 
-        strings.insert("two");   // is there a (performance) problem ???
+        strings.insert("two");             // is there a (performance) problem ???
 
-        auto pos = strings.find("one");
+        std::string key{ "one" };
+
+        // auto pos = strings.find("one");    // is there a (performance) problem ???
+        auto pos = strings.find(key);         // is there a (performance) problem ???
+
     }
 
     static void test_04()

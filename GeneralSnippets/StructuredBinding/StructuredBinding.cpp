@@ -2,6 +2,10 @@
 // StructuredBinding.cpp // Structured Binding
 // =====================================================================================
 
+module;
+
+#include <utility>
+
 module modern_cpp:structured_binding;
 
 import std;
@@ -37,11 +41,13 @@ namespace StructuredBinding {
 
     static void test_03()
     {
-        int arr[] { 123, 456, 789 };
+        int arr[3] { 123, 456, 789 };
 
-        auto [a, b, c] { arr };
+        const auto& [a, b, c] { arr };
 
-        std::println("{}, {}, {}", a, b, c);
+        // c = 999;
+
+        std::println("{}, {}, {}", a, b, arr[2]);
     }
 
     static void test_04()
@@ -97,7 +103,7 @@ namespace StructuredBinding {
         std::println("Y Coordinate : {}", y);
 
         // with structured binding and an anonymous object
-        auto [x1, y1] { Point{ 100, 200 } };
+        auto&& [x1, y1] { Point { 100, 200 } };
 
         std::println("X Coordinate : {}", x1);
         std::println("Y Coordinate : {}", y1);

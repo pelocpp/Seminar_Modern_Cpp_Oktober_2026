@@ -116,13 +116,55 @@ namespace VariantDemo {
 
     // -------------------------------------------------------------------
 
+    // primary template
+    template <class T>
+    struct my_remove_reference {
+        using type = T;
+    };
+
+    // Spezialfall: Template Specialization - T = short
+    template <>
+    struct my_remove_reference<short> {
+        using type = int;  // jeder short wird auf int umgelenkt
+    };
+
+    template <class T>
+    struct my_remove_reference<T&> {
+        using type = T;
+    };
+
+
+
+
+
     static void test_04() {
 
         std::variant<int, double, std::string> var{ 123 };
 
         // using a generic visitor (matching all types in the variant)
-        auto visitor = [](const auto& elem) {
-            std::println("{}", elem);
+        auto visitor = [] ( const auto& elem) {
+
+            using ElemType = decltype (elem);  
+            // using ElemTypeWithoutRef = std::remove_reference<ElemType>::type;
+            using ElemTypeWithoutRef = my_remove_reference<ElemType>::type;
+            using ElemTypeWithoutRefAndConst = std::remove_const<ElemTypeWithoutRef>::type;
+
+            if constexpr (std::is_same<ElemTypeWithoutRefAndConst, int>::value == true)
+            {
+                std::println("int: {}", elem);
+            }
+            else if constexpr (std::is_same<ElemTypeWithoutRefAndConst, double>::value == true)
+            {
+                std::println("double: {}", elem);
+            }
+            else if constexpr (std::is_same<ElemTypeWithoutRefAndConst, std::string>::value == true)
+            {
+                std::println("std::string: {}", elem);
+                std::println("Length: {}", elem.size());
+            }
+            else {
+                std::println("Unbekannt: {}", elem);
+            }
         };
 
         std::visit(visitor, var);
@@ -211,11 +253,21 @@ namespace VariantDemo {
 
     // -------------------------------------------------------------------
 
+    // STL Container:  Homogene Container 
+
+    // Python, Java: Heterogene Container
+
     static void test_07() {
 
-        std::vector<std::variant<int, long, long long, float, double>> vec
+        std::any aValue;
+
+        std::array <int, 1000> feld;
+
+        aValue = feld;
+
+        std::vector<std::variant<int, long, long long, float, double, std::string, std::vector<int>>> vec
         {
-            100, 200l, 300ll, 400.5f, 500.5 
+            100, 200l, 300ll, 400.5f, 500.5 , ""
         };
 
         // display each value
@@ -236,17 +288,17 @@ namespace VariantDemo {
         std::common_type<int, long, long long, float, double>::type res{};
         std::println("Type of Sum: {}", typeid(res).name());
 
-        for (const auto& var : vec) {
-            std::visit([&res](const auto& arg) { res += arg; }, var);
-        }
-        std::println("Sum:         {}", res);
+        //for (const auto& var : vec) {
+        //    std::visit([&res](const auto& arg) { res += arg; }, var);
+        //}
+        //std::println("Sum:         {}", res);
 
-        // double each value of the vector
-        std::println("Values:      ");
-        for (auto& var : vec) {
-            std::visit([](auto& arg) { arg *= 2; }, var);
-            std::visit([](const auto& arg) { std::print("{} ", arg); }, var);
-        }
+        //// double each value of the vector
+        //std::println("Values:      ");
+        //for (auto& var : vec) {
+        //    std::visit([](auto& arg) { arg *= 2; }, var);
+        //    std::visit([](const auto& arg) { std::print("{} ", arg); }, var);
+        //}
         std::println();
     }
 
@@ -346,17 +398,17 @@ void main_variant()
 {
     using namespace VariantDemo;
 
-    test_01();
-    test_02();
-    test_03();
+    //test_01();
+    //test_02();
+    //test_03();
     test_04();
-    test_05();
-    test_06();
-    test_07();
-    test_08();
-    test_09();
-    test_10();
-    test_11();
+    //test_05();
+    //test_06();
+    //test_07();
+    //test_08();
+    //test_09();
+    //test_10();
+    //test_11();
 }
 
 // =====================================================================================

@@ -20,10 +20,12 @@ namespace TupleSamples {
         values = std::make_tuple('A', 123, 123.456);
 
         // just in one statement
-        std::tuple<char, int, double> moreValues{ 'Z', 987, 987.654 };
+        std::tuple moreValues{ 'Z', 987, 987.654 };
 
         // accessing tuple values using std::get
         {
+            /*const*/ int n = 1;
+
             auto value1{ std::get<0>(values) };
             auto value2{ std::get<1>(values) };
             auto value3{ std::get<2>(values) };
@@ -70,6 +72,8 @@ namespace TupleSamples {
         Row row2{ 11, 'B', 2.22, "Sepp" };
         Row row3{ 12, 'C', 3.33, "Hans" };
 
+        using Row = std::tuple<int, char, double, std::string>;
+
         std::vector<Row> mySheet;
 
         mySheet.push_back(row1);
@@ -104,6 +108,7 @@ namespace TupleSamples {
         std::println("Value: {}", val);
         std::println("Name:  {}", name);
 
+        // Range-based Loop:
         for (const auto& [id, abbr, val, name] : mySheet)
         {
             std::println("Id:    {}", id);

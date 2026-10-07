@@ -20,6 +20,7 @@ namespace OptionalExamples {
             std::println("Value: {}", someValue.value());
         }
 
+        // Implizite Typkonvertierung: std::optional<int> ==> bool
         if (someValue) {
             // providing an interface similar to smart pointers
             std::println("Value: {}", *someValue);
@@ -45,7 +46,7 @@ namespace OptionalExamples {
         std::optional<std::string> m_phone;
 
     public:
-        Contact() : m_phone{ std::nullopt } {}
+        Contact() /*: m_phone{ std::nullopt }*/ {}
 
         void setPhone(const std::string& phone) { m_phone = phone; }
 
@@ -64,6 +65,15 @@ namespace OptionalExamples {
         }
 
         contact.setPhone("123456789");
+
+        const auto& phoneOpt = contact.getPhone();
+
+        //if (phoneOpt) {
+        //    std::println("Number: {}", *phoneOpt);
+        //}
+        //else {
+        //    std::println("No Number found!");
+        //}
 
         if (contact.getPhone()) {
             std::println("Number: {}", *contact.getPhone());
@@ -198,20 +208,35 @@ namespace OptionalExamples {
         }
     }
 
+    //static std::string hasValidName(const User& user) {
+    //    if (!user.m_first.empty() and !user.m_last.empty()) {
+    //        return user.m_first + " " + user.m_last;
+    //    }
+    //    else {
+    //        return "";
+    //    }
+    //}
+
     static void test_02_optional_monadic()
     {
-        auto user{ std::make_optional<User>("Hans", "Mueller", 30) };
+        //std::optional<User> user;
+        // Or
+        // auto user{ std::make_optional<User>("Hans", "Mueller", 30) };
         // or
-        // auto user{ std::make_optional<User>("Sepp", "", 30) };
+        auto user{ std::make_optional<User>("Sepp", "", 30) };
 
         auto result = user.and_then([](const auto& user) {
             return hasValidName(user);
             }
         );
 
-        if (result) {
-            std::println("Result: {}", result.value());
-        }
+        //if (result) {
+        //    std::println("Result: {}", result.value());
+        //}
+
+        //if (result != "") {
+        //    std::println("Result: {}", result);
+        //}
 
         std::println("Done.");
     }
@@ -221,19 +246,19 @@ namespace OptionalExamples {
 
     static void test_03_optional_monadic()
     {
-        auto user = std::make_optional<User>("Hans", "Mueller", 30);
-        // or
-        // auto user = std::make_optional<User>("Sepp", "", 30);
+        //auto user = std::make_optional<User>("Hans", "Mueller", 30);
+        //// or
+        //// auto user = std::make_optional<User>("Sepp", "", 30);
 
-        auto result = user.and_then([](const auto& user) {
-            return hasValidName(user);
-            }).or_else([]() {
-                return std::optional<std::string>{"Max Mustermann"};
-            });
+        //auto result = user.and_then([](const auto& user) {
+        //    return hasValidName(user);
+        //    }).or_else([]() {
+        //        return std::optional<std::string>{"Max Mustermann"};
+        //    });
 
-        if (result) {
-            std::println("Result: {}", result.value());
-        }
+        //if (result) {
+        //    std::println("Result: {}", result.value());
+        //}
 
         std::println("Done.");
     }
@@ -243,27 +268,27 @@ namespace OptionalExamples {
 
     static void test_04_optional_monadic()
     {
-        auto user = std::make_optional<User>("Hans", "Mueller", 30);
-        // or
-        // auto user = std::make_optional<User>("Sepp", "", 30);
+        //auto user = std::make_optional<User>("Hans", "Mueller", 30);
+        //// or
+        //// auto user = std::make_optional<User>("Sepp", "", 30);
 
-        auto result = user.and_then([](const auto& user) {
-            return hasValidName(user);
-            }).transform([](auto name) {
+        //auto result = user.and_then([](const auto& user) {
+        //    return hasValidName(user);
+        //    }).transform([](auto name) {
 
-                std::transform(
-                    name.begin(),
-                    name.end(),
-                    name.begin(),
-                    [](unsigned char c) { return std::toupper(c); }
-                );
+        //        std::transform(
+        //            name.begin(),
+        //            name.end(),
+        //            name.begin(),
+        //            [](unsigned char c) { return std::toupper(c); }
+        //        );
 
-                return name;
-            });
+        //        return name;
+        //    });
 
-        if (result) {
-            std::println("Result: {}", result.value());
-        }
+        //if (result) {
+        //    std::println("Result: {}", result.value());
+        //}
 
         std::println("Done.");
     }

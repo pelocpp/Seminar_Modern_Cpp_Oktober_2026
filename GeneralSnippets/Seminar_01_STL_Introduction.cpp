@@ -14,6 +14,9 @@
 void test_stl_01()
 {
     std::vector<int> zahlen;
+
+    using WhichVectorType = std::vector<int>::value_type;
+
     zahlen.reserve(4 * 20);
 
     for (std::size_t i = 0; i != 100; ++i) {

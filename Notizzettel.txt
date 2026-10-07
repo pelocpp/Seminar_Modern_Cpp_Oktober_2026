@@ -400,3 +400,167 @@ CLang: Volle Doku
 
 ============================================================
 
+Structured Binding   // Lesbarkeit // besserer Quellcode
+
+========================================================
+
+STL Container
+
+std::array
+
+Funktionalität:  Identisch zu einem C-Array
+
+Fixed-Size Array !!!
+
+Python  List  ==>  std::vector
+
+        [ 1, 2.5, "ABC" ] ==>  std::vector <std::variant>
+
+
+std::span
+
+========================================
+
+Tupel:  Ist eine kleine Helfer-Klasse für mehrere Daten / Variablen.
+
+Ein std::tuple ist ähnlich zu struct - für Schreibfaule.
+
+DTO  - Data Transfer Object -  
+
+std::tuple i ==> Structured Binding
+
+========================================
+
+Robustheit:
+
+int result = foo ();
+
+if (result == -1) ...
+
+if (result == -2) ...
+
+if (result == -MAX_INT) ...
+
+std::string result = foo ();
+
+if (result == "") ...
+
+int result; Wann ist der Inhalt von result gültig ?
+
+int  result;
+bool isValid;  false // true:  result hat einen gültigen Wert
+
+std::optional
+
+=========================================================
+
+std::map
+
+is_transparent 
+
+==================================================
+
+std::variant
+
+Excel:   Zellen   // Cell
+
+Klasse Cell:
+
+String, num. Wert, Datum, Currency, Gleitpunkt, ....
+
+std::variant<int, double, std::string> cell;
+
+Zu einem Zeitpunkt X ist nur ein Typ aktiv.
+
+Man kann von Typ zu Typ umschalten ...
+
+Ähnlichkeiten: union
+
+
+std::variant: Wir besuchen einen Variant (C++ 17):  std::visit
+
+Zweite if , neue if-Anweisung:
+
+if compiler 
+
+==================================================
+
+std::map
+std::set
+
+std::unordered_map
+std::unordered_set
+
+==================================================
+
+C++ und Zeichenketten:
+
+"asfdasdas"
+
+Wo liegt diese Zeichenkette mit Sicherheit NICHT im Speicher ???
+
+A) Code-Segment
+
+B) Const Data Segment
+
+C) Nicht: Stack
+
+D) Nicht: Heap
+
+std::string s {"asfdasdawerwerwerwerwes"};
+
+Wo liegt diese Zeichenkette mit Sicherheit im Speicher ???
+
+A) Heap
+
+Beobachtung / Fragestellung:
+
+i) Haben wir viele konstante Zeichenketten in unserem Programm?
+                   ---------
+
+ii) Mache ich Zeichenketten-Verarbeitung mit einer Zeichenkette:
+
+    .insert,  .remove, ... 
+
+
+a) Hmmm, std::string kopiert auf den Heap um.
+
+b) const char* cp = "asfdasdas";
+
+   WE CAN DO BETTER: std::string_view : konstante Zeichenketten
+
+   std::string_view
+
+      = Adresse
+	  = Länge
+
+   std::span
+   std::array
+
+Bemerkung:  
+
+   std::string_view: Diese Adresse sollte gültig sein.
+   std::span
+
+   Non-owning Container
+
+   How NOT to do Example:
+
+   Ich wüsste keine Zusammenarbeit von std::string
+    und std::string_view.
+
+================================================
+
+std::string
+
+Jeder Hersteller hat hier seine eigene Realisierung.
+
+Was verwenden wir von std::string:
+
+  Das öffentliche API
+
+
+Intern: Sizeof (std::string) = 20 / 40 , ....
+
+SSO:   Länge;  15   //  22 ... Release / Debug ...
+

@@ -39,7 +39,7 @@ int main()
         //main_argument_dependent_name_lookup();
         //main_array();
         //main_array_decay();
-        //main_attributes();
+      //  main_attributes();
         //main_auto();
         //main_back_inserter();
         //main_bind();
@@ -49,7 +49,7 @@ int main()
         //main_concepts_requires_classes();
         //main_concepts_requires_functions();
         //main_const_variants();
-        main_constexpr();
+        //main_constexpr();
         //main_constexpr_crc();
         //main_constructor_invocations();
         //main_copy_move_elision();
@@ -71,7 +71,7 @@ int main()
        // main_initializer_list();
         //main_input_output_streams();  
         //main_invoke();
-        //main_is_transparent();
+      //  main_is_transparent();
         //main_lambdas();
         //main_lambda_and_closure();
         //main_lambdas_this_closure();
@@ -82,10 +82,10 @@ int main()
         //main_modularized_standard_library();
         //main_modules_hello_world();
         //main_move_semantics();
-        //main_optional();
+       // main_optional();
         //main_perfect_forwarding();
         //main_placement_new();
-        //main_println();
+       // main_println();
         //main_raii();
         //main_raii_02();
         //main_random();
@@ -100,7 +100,7 @@ int main()
         //main_spaceship_operator();
        //main_sso();
         //main_static_assert();
-        //main_string_view();
+        main_string_view();
         //main_structured_binding();
         //main_templates_class_basics_01();
         //main_templates_class_basics_02();
@@ -120,7 +120,7 @@ int main()
         //main_variadic_templates_working_on_every_argument();
         //main_variadic_templates_sum_of_sums();
         //main_variadic_templates_mixins();
-        //main_variant();
+       // main_variant();
         //main_virtual_base_class_destructor();
         //main_virtual_override_final();
        // main_weak_pointer();

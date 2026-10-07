@@ -2,6 +2,11 @@
 // StringView.cpp // Klasse std::string_view
 // =====================================================================================
 
+module;
+
+#include <string>
+#include <string_view>
+
 module modern_cpp:string_view;
 
 import std;
@@ -14,7 +19,7 @@ namespace StringViewDemonstration {
 
         std::string s{ "AAAAAAAAAAAAAAAAAAAAAAAAAAAA" };        //  Heap
 
-        // sv[0] = '?';   // error
+        //sv[0] = '?';   // error
         char ch{ sv[0] };
     }
 
@@ -23,10 +28,11 @@ namespace StringViewDemonstration {
         std::string s{ "AAAAAAAAAAAAAAAAAAAAAAAAAAAA" };
 
         std::string_view sv{ s };
+        func(std::string_view sv);
 
         std::println("{}", sv);
 
-        s += "BBBBBBBBBBBBBBBBBBBBBBBBBBBB";        // Caution: the content of s is reallocated !
+        s += "BBBBBBBBBBBBBBBBBBBBBBBBBBBB";            // Caution: the content of s is reallocated !
 
         std::println("{}", sv);
     }
@@ -55,11 +61,11 @@ namespace StringViewDemonstration {
         using namespace std::literals;    // easiest way to access the s and sv suffixes
 
         auto s1 = "ABC";                  // no suffix: C-style string literal
-        auto s2 = "DEF"s;                 // s suffix:  std::string literal
+      //  auto s2 = "DEF"s;                 // s suffix:  std::string literal
         auto s3 = "GHI"sv;                // sv suffix: std::string_view literal
 
         std::println("{}", s1);
-        std::println("{}", s2);
+      //  std::println("{}", s2);
         std::println("{}", s3);
     }
 

@@ -10,7 +10,8 @@ import std;
 
 namespace StandardAttributes {
 
-    [[ nodiscard ]] static int discard_test()
+    [[ nodiscard ]]
+    static int discard_test()
     {
         return 123;
     }

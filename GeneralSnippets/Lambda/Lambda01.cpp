@@ -426,7 +426,7 @@ static constexpr auto anotherValue = [](int x)
         return x + 5;
     }(5);
 
-static constexpr auto squareNumbers = []() {
+static constexpr auto squareNumbers = []() constexpr {
     std::array<int, 10> temp{};
     for (int i = 0; i < 10; ++i) {
         temp[i] = i * i;

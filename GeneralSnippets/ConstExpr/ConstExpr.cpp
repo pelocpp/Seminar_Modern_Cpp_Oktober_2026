@@ -29,16 +29,40 @@ namespace ConstExprVariables {
 // =====================================================================================
 // functions
 
+namespace ConstExprFunctions_Seminar {
+
+    void test() {
+
+        [] {};
+
+        [] () {};
+
+        auto l1 = [](auto a) { return 2 * a; };
+
+        constexpr auto l2 = [](auto a) { return 2 * a; };
+
+        auto result = l1(10);
+
+        // IIFE
+        constexpr auto l3 = [](auto a) { return 2 * a; } (20) ;
+
+    }
+
+
+
+}
+
+
 namespace ConstExprFunctions {
 
     // ======================================================
     // limit a number in a range or in between two given numbers
 
-    #define   CLAMP(x, lo, hi)    ((x) < (lo) ? (lo) : ((x) > (hi) ? (hi) : (x)))
+    #define  CLAMP(x, lo, hi) ((x) < (lo) ? (lo) : ((x) > (hi) ? (hi) : (x)))
 
     static auto clamp = [](auto x, auto lo, auto hi) constexpr {
         return x < lo ? lo : (x > hi ? hi : x);
-        }; 
+    }; 
 
     static void testFunctions_01() {
 
@@ -69,6 +93,7 @@ namespace ConstExprFunctions {
 
         std::size_t a{ 1 };
         std::size_t b{ 2 };
+
         std::size_t value{ SQUARE(a + b) };       // value == 5: Wrong result !!!
         assert(value == 5);
     }
