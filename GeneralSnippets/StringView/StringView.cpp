@@ -28,7 +28,7 @@ namespace StringViewDemonstration {
         std::string s{ "AAAAAAAAAAAAAAAAAAAAAAAAAAAA" };
 
         std::string_view sv{ s };
-        func(std::string_view sv);
+        //func(std::string_view sv);
 
         std::println("{}", sv);
 

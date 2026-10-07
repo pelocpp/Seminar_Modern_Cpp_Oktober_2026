@@ -7,6 +7,128 @@ module modern_cpp:folding;
 import std;
 import scoped_timer;
 
+namespace Folding_Seminar {
+
+    // primary template
+    template <typename ... TArgs>
+    auto addierer(TArgs ... args) {  // Parameter Pack
+
+        auto sum = 0;
+
+        auto list = { args ... };    // auspacken
+                                     // Es wird eine komma getrennte Liste erzeugt
+
+        for ( auto elem : list ) {
+            sum += elem;
+        }
+
+        return sum;
+    }
+
+    template <typename ... TArgs>
+    auto addiererExtended (TArgs ... args) {  // Parameter Pack
+
+       // Auspacken, zum Zweiten: Folding Ausdruck
+
+        auto sum =  (... + args );
+
+        return sum;
+    }
+
+    template <typename ... TArgs>
+    auto subtrahierer(TArgs ... args) {  // Parameter Pack
+
+        // 1 - (2 - 3):  +2
+        // (1 - 2) - 3:  -4
+
+        auto result = (args - ...);
+
+        return result;
+    }
+
+    void test_folding_seminar_zum_ersten() {
+
+        auto result = addierer( 1, 2, 3, 4, 5 );   // einpacken
+                                     // Es muss eine komma getrennte Liste vorliegen
+        std::println("Sum: {}", result);
+
+        auto result2 = addiererExtended(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);   // einpacken
+        // Es muss eine komma getrennte Liste vorliegen
+        std::println("Sum: {}", result2);
+
+        result = subtrahierer(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        std::println("Sub: {}", result);
+
+    }
+
+    // ====================================================
+
+
+    class DoSomething
+    {
+    private:
+        int m_var1;
+        int m_var2;
+        int m_var3;
+
+    public:
+        DoSomething() : m_var1{}, m_var2{}, m_var3{} {
+            std::println("c'tor()");
+        }
+
+        DoSomething(int n) : m_var1{ n }, m_var2{}, m_var3{} {
+            std::println("c'tor(int)");
+        }
+
+        DoSomething(int n, int m) : m_var1{ n }, m_var2{ m }, m_var3{} {
+            std::println("c'tor(int, int)");
+        }
+
+        DoSomething(int n, int m, int k) : m_var1{ n }, m_var2{ m }, m_var3{ k } {
+            std::println("c'tor(int, int, int)");
+        }
+
+        ~DoSomething() {
+            std::println("d'tor()");
+        }
+
+        friend std::ostream& operator<< (std::ostream&, const DoSomething&);
+    };
+
+    std::ostream& operator<< (std::ostream& os, const DoSomething& obj) {
+        os
+            << "var1: " << obj.m_var1
+            << ", var2: " << obj.m_var2
+            << ", var3: " << obj.m_var3;
+
+        return os;
+    }
+
+    template <typename T, typename ... TArgs>
+    auto my_make_unique(TArgs ... args) {
+
+        std::unique_ptr <T> ptr{ new T ( args ...  ) };
+        return ptr;
+    }
+
+
+    void test_folding_seminar() {
+
+        std::unique_ptr <int> ptr1 = std::make_unique<int>(123);
+
+        std::unique_ptr <DoSomething> ptr2 = 
+            std::make_unique<DoSomething>(10, 11, 12);
+
+        std::unique_ptr <DoSomething> ptr3 =
+            my_make_unique<DoSomething>(10, 11, 12);
+    }
+}
+
+
+
+
+
+
 namespace Folding {
 
     /* folding examples: introduction
@@ -234,6 +356,9 @@ namespace Folding {
 void main_folding()
 {
     using namespace Folding;
+
+    Folding_Seminar::test_folding_seminar();
+    return;
 
     test_01();
     test_02();
