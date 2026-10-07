@@ -72,7 +72,7 @@ namespace UniquePointerGeneral {
                      // Don't touch this statement
     }
 
-    static void storeUniquePointer(std::unique_ptr<int>& ptr)
+    static void storeUniquePointer(/*const*/ std::unique_ptr<int>& ptr)
     {
         std::println("*ptr:    {}", *ptr);
         (*ptr)++;

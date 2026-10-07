@@ -945,8 +945,11 @@ namespace Exercises_SmartPointers {
             }
 
             void sayHello() const {
+                // if (std::shared_ptr <> sp != nullptr ) 
                 if (auto mother = m_mother.lock()) {
-                    std::println("{}: Hello mother.", m_name);
+
+                    std::println("{}: Hello mother.", mother->getName());
+                //    std::println("{}: Hello mother.", m_name);
                 }
                 else {
                     std::println("{}: My mother no longer exists.", m_name);
@@ -969,11 +972,12 @@ namespace Exercises_SmartPointers {
 
             // both human beings are independently owned
             auto mother = std::make_shared<Mom>("Dorothea");
-            auto child = std::make_shared<Child>("John");
+
+            auto child = std::make_shared<Child>("John"); // Why not hier: Mutter ??
 
             // establish the relationships
             mother->setChild(child);
-            child->setMother(mother);
+            child->setMother(mother);  // 
 
             std::println("{}: use_count = {}", mother->getName(), mother.use_count());
             std::println("{}: use_count = {}", child->getName(), child.use_count());

@@ -283,10 +283,120 @@ Modern C++:  Nachricht  ==> Don't use new / delete.
 
 Wie anders:  Nachricht  ==> Use Smart Pointer
 
+===========================================================
+
+std::unique_ptr
+
+std::shared_ptr
+
+It depends :)
+
+Ownership:  int* ptr;  new ==========> delete
+
+==> std::unique_ptr käme dem Ownership-Gedanken am nächsten.
+
+==> std::shared_ptr: Mehrere Besitzer.
+
+PROBLEM: Der std::shared_ptr funktioniert nicht IMMER ?!?!?!?!?!?
+
+         Es gehen delete's verloren ?!?!??!
+
+It's not a real C++ Problem :)
+
+A) Wie arbeitet der std::weak-Pointer
+
+B) Was ist das Problem.
+
+
+Whyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+
+Zyklen .......
+
+Wie gehe ich damit um ???????????????????????????????
+
+Beispiel:
+
+Observer-Pattern
+
+Beobachter-Pattern:
+
+A) State-Objekt: Hat Zustand (Wetter-Daten, Aktien-Daten, ....)
+
+b) Clients / Beobachter: Interessieren sich für Änderungen am State-Objekt.
+
+c) Clients melden sich am State-Objekt an: register // unregister
+
+d) State-Objekt kennt einen oder mehrere Client-Objekte:
+
+   Gespeichert werden: Wie // std::vector < Shared oder Weak ?!?  Client> 
+
+   Annahme:  std::vector < std::shared < Client >> m_currentClients;
+
+   So wird das State-Objekt zum BESITZER der Clients !!!
+
+   Macht das Sinn:  NEIN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    std::vector < std::weak < Client >> m_currentClients;
+
+i) State-Objekt: std::shared_ptr.
+
+ii) Beobachter:  std::shared_ptr.
 
 
 
+Wie gehe ich damit um ???????????????????????????????
+
+A) Zunächst den einen std::shared_ptr anlegen: 
+
+B) Bei jeder weiteren Verwendung:  Tut es nicht auch ein weak_ptr ???
+
+C)  std::shared_ptr: Ref-Count: 10 oder höher ....
+
+=======================================================
+
+Low Hanging Fruits
+------------------
+
+Performanz:
+
+std::initializer_list
+
+vs.
+
+std::vector
+
+std::vector<int> vec { 10 };  // Size: 1 - Wert: 10
+
+vs.
+
+std::vector<int> vec ( 10 );  // Size: 10 - Werte: 0, 0, 0, .. 0
+
+std::vector<int> vec;
+
+std::vector<int> vec ( 10, 99 ); // Size: 10 - 10 Mal 99
+
+vs.
+
+std::vector<int> vec { 10, 99 }; // Size: 2 : 10, 99
+
+======================================================
+
+constexpr
 
 
+const
 
+        constexpr Complex c3{ c1 + c2 };
+00007FF60E386760  movss       xmm0,dword ptr [__real@40800000 (07FF60E63681Ch)]  
+00007FF60E386768  movss       dword ptr [c3],xmm0  
+00007FF60E386770  movss       xmm0,dword ptr [__real@40a00000 (07FF60E636820h)]  
+00007FF60E386778  movss       dword ptr [rbp+8Ch],xmm0  
+
+Wie funktioniert constexpr ???
+
+MSVC Visual C++:  Wenig Doku
+
+CLang: Volle Doku
+
+============================================================
 

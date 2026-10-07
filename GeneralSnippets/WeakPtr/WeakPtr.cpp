@@ -106,7 +106,7 @@ namespace WeakPointer {
 
     class RightNode {
     private:
-        std::shared_ptr<ParentNode> m_parentNode;   // <== shared or weak ?
+        std::weak_ptr<ParentNode> m_parentNode;   // <== shared or weak ?
 
     public:
         explicit RightNode(const std::shared_ptr<ParentNode>& parent)
@@ -121,7 +121,7 @@ namespace WeakPointer {
 
     class LeftNode {
     private:
-        std::shared_ptr<ParentNode> m_parentNode;   // <== shared or weak ?
+        std::weak_ptr<ParentNode> m_parentNode;   // <== shared or weak ?
 
     public:
         explicit LeftNode(const std::shared_ptr<ParentNode>& parent)
@@ -134,19 +134,48 @@ namespace WeakPointer {
         }
     };
 
+    class NodeFrage
+    {
+    private:
+        std::unique_ptr<int> m_node;
+
+    public:
+
+        NodeFrage& operator= (NodeFrage&& other) noexcept {
+
+            m_node = std::move(other.m_node);
+            return *this;
+        }
+
+        ~NodeFrage() {
+            std::println("d'tor NodeFrage");
+        }
+    };
+
+    void test_frage()
+    {
+        NodeFrage node1;
+        NodeFrage node2;
+
+        node1 = std::move(node2);
+    }
+
     static void test_02()
     {
         std::shared_ptr parent{ std::make_shared<ParentNode>() };
+
         std::shared_ptr rightNode{ std::make_shared<RightNode>(parent) };
+
         std::shared_ptr leftNode{ std::make_shared<LeftNode>(parent) };
 
         parent->setRightNode(rightNode);
+
         parent->setLeftNode(leftNode);
 
         // some informations output
-        std::println("Reference-Count parent:    {}", parent.use_count());
-        std::println("Reference-Count rightNode: {}", rightNode.use_count());
-        std::println("Reference-Count leftNode:  {}", leftNode.use_count());
+        // std::println("Reference-Count parent:    {}", parent.use_count());
+        // std::println("Reference-Count rightNode: {}", rightNode.use_count());
+        // std::println("Reference-Count leftNode:  {}", leftNode.use_count());
     }
 }
 
@@ -154,7 +183,10 @@ void main_weak_pointer()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     using namespace WeakPointer;
-    test_01();
+
+  //  test_frage();
+
+  //  test_01();
     test_02();
 }
 

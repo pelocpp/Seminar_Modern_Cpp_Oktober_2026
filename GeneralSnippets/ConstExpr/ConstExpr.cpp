@@ -164,6 +164,7 @@ namespace ConstExprClassesAndObjects {
     public:
         // c'tors
         constexpr Complex() : m_real{ }, m_imag{ } {}
+
         constexpr Complex(float real, float imag) : m_real{ real }, m_imag{ imag } {}
 
         // getter
