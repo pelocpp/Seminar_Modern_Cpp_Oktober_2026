@@ -28,7 +28,7 @@ namespace RAIIDemo {
         RAII& operator= (const RAII&) = delete;
 
     private:
-        TFinalizer m_finalizer;
+        TFinalizer m_finalizer;   // Lambda
     };
 
     static void test_01()
@@ -39,7 +39,13 @@ namespace RAIIDemo {
                 return;
             }
 
+
             RAII raii{ [&] { delete ptr; } };
+
+            // mit ptr arbeiten
+
+            // mit ptr arbeiten
+
         }
 
         std::cout << "Done." << std::endl;

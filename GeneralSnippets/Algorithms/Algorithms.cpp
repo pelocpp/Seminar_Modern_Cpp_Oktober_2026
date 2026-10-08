@@ -56,7 +56,7 @@ namespace Algorithms {
 
             std::vector<double> values(VectorSize);
 
-            ScopedTimer watch{};
+            ScopedTimer watch{};   // RAII object
 
             for (std::size_t i{}; i != values.size(); ++i) {
                 values[i] = 123.0;

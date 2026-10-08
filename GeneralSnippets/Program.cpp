@@ -32,7 +32,7 @@ int main()
         // seminar_stl_introduction();
 
         //main_accumulate();
-        //main_algorithms();
+      //  main_algorithms();
         //main_all_of_any_of_none_of();
         //main_allocator();
         //main_any();
@@ -60,7 +60,7 @@ int main()
         //main_erase_remove_idiom();
         //main_expression_templates();
         //main_exception_safety();
-        main_expected();
+        //main_expected();
         //main_explicit_keyword();
         //main_folding();
         //main_functional_programming();
@@ -72,7 +72,7 @@ int main()
         //main_input_output_streams();  
         //main_invoke();
       //  main_is_transparent();
-        //main_lambdas();
+       main_lambdas();
         //main_lambda_and_closure();
         //main_lambdas_this_closure();
         //main_literals();
@@ -86,7 +86,7 @@ int main()
         //main_perfect_forwarding();
         //main_placement_new();
        // main_println();
-        //main_raii();
+      //  main_raii();
         //main_raii_02();
         //main_random();
         //main_range_based_for_loop();

@@ -461,7 +461,7 @@ static void lambda_13()
     auto lambda = [&]() { ptr->doSomething(); };
 
     // Compiles: "Generalized Lambda Capture"
-    auto lambda2 = [ptrSampleClass = std::move(ptr)]() {
+    auto lambda2 = [ ptrSampleClass = std::move(ptr) ]() {
         ptrSampleClass->doSomething();
     };
     lambda2();
@@ -572,22 +572,22 @@ static void lambda_16()
 
 void main_lambdas()
 {
-    //lambda_01();
-    //lambda_02();
-    //lambda_03();
-    //lambda_04();
-    //lambda_05();
-    //lambda_06();
-    //lambda_07();
-    //lambda_08();
-    //lambda_09();
+    lambda_01();
+    lambda_02();
+    lambda_03();
+    lambda_04();
+    lambda_05();
+    lambda_06();
+    lambda_07();
+    lambda_08();
+    lambda_09();
     lambda_10();
-    //lambda_11();
-    //lambda_12();
-    //lambda_13();
-    //lambda_14();
-    //lambda_15();
-    //lambda_16();
+    lambda_11();
+    lambda_12();
+    lambda_13();
+    lambda_14();
+    lambda_15();
+    lambda_16();
 }
 
 // =====================================================================================

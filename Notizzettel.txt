@@ -639,3 +639,202 @@ UDL:   2432432_kilogramm
 =====================================
 
 Modul-Konzept:   ==> Precompiled Header 
+
+=====================================
+
+RAII
+====
+
+https://github.com/pelocpp/cpp_design_patterns/blob/master/Patterns/RAII_Idiom/Resources/Readme.md
+
+Problem:
+
+C++ und Betriebssystem:
+
+Socket, FILE, Database , Mutex, ....
+
+a) open(), connect(), SqlConnect(), Mutex: lock(), ...,  new
+
+b) close(), disconnect(), ReleaseDB(), Mutex: unlock(), delete
+
+Problem: Der "zweite" Aufruf wird vergessen 
+
+
+Idee:      Smart Pointer // Unique_ptr:
+
+Resource:  Hüllenklasse:
+
+    Konstruktor: open()
+	Destruktor:  close()
+
+=====================================
+
+Übung:
+
+int counter = 0;
+
+1000 Mal:  counter um 1 hochzählen  (in einem Thread)
+
+1000 Mal:  counter um 1 runterzählen (in einem anderen Thread)
+
+Frage: Welchen Wert hat counter danach ?
+
+Depends :) We expect 0
+
+                ++m_counter;
+
+00007FF63EE02C63  mov         rax,qword ptr [this]   // Lesen 
+00007FF63EE02C6A  mov         eax,dword ptr [rax] 
+
+00007FF63EE02C6C  inc         eax  // Akku
+
+INT: Timer-Int: 
+
+EI  // DI   Enable Int  // Disable Int
+
+// <===========   THREAD WECHSEL
+
+00007FF63EE02C6E  mov         rcx,qword ptr [this]  // Rückschreiben
+00007FF63EE02C75  mov         dword ptr [rcx],eax  
+
+
+i) EAX: 100
+
+ii) Der andere Thread: 100, 99, 98, 97, 96
+
+iii) Beim wiederaufwecken wird u.a. EAX wieder hergestellt: 100
+
+
+Problem: DIE SELBE Variable wird von mehreren Threads verwendet.
+
+Muss mit Spezial Funktionen erfolgen.
+
+Lösung: Atomic Klassen.
+
+// Unterbrechung: Interrupt Sperre // Bussperre 
+
+
+
+
+
+THREAD WECHSEL:
+
+Was passiert bei einem Thread Wechsel ???
+
+== Aktuelle Thread wird schlafen gelegt
+
+== Sein aktueller Zustand wird weggeschrieben:
+
+   == IP - wo ist er
+   == der ganze Registersatz // SP // 
+
+   == Wohin wird das geschrieben ?? Auf den aktuellen STACK des Threads
+
+== Der neue wird aufgeweckt
+
+
+=================================
+
+Wieviele Threads sollten es denn sein ????
+
+i) Methoden: Lange laufen ==>  Ergebnisse ==> Threads
+
+ii) Durchsatz: Besser werden.
+
+iii) Thread: Overhead ===> Händchen: Zu viele sollten es dann auch nicht sein.
+
+iv)  Alternative: Nicht einen einzelnen Thread  anlegen ...
+
+     Thread Pool
+
+std::async: Thread Pool
+
+=========================================
+
+Ein "anderes" Programm:
+
+C++:   API // Threading:  Mutex:   In EINEM Prozess
+
+====================
+
+KEIN C++ Api: Inter Prozess Kommunikation.
+
+====================
+
+Mutex:
+
+Habe eine Datentyp, der komplexer ist.
+
+Es geht jetzt nicht nur um ++ oder ähnliches.
+
+Datentyp Stack:
+
+push:
+
+Schreiben der Variablen on TOS
+Stackzeiger inkrementieren.
+
+==> Mutex:  Spannt einen Bereich auf.
+
+==> lock();
+
+= kritische Anweisungen // NUR EIN Thread
+= Schreiben der Variablen on TOS
+= Stackzeiger inkrementieren.
+
+unlock();
+
+Bemerkung:
+
+                m_mutex.lock();
+                ++m_counter;
+                m_mutex.unlock();
+
+
+			Prinzipiell korrekt: Möglichen Probleme
+
+
+We can do better:
+
+RAII:
+
+Hülle um den Mutex gelegt: MutexWrapper:
+
+SYNRAX:
+
+{
+     MutexWrapper { m_mutex };  // Konstruktor: .lock()
+
+	 ++m_counter;
+	 if (..) break;
+}                               // Destruktor:  .unlock()
+
+
+Systemprogrammierung
+
+Betriebssystemprogrammierung
+
+Andrew Tanenbaum
+
+=====================================================
+
+Konkurrenz:  Probleme des gleichzeitigen Zugriffs
+
+====
+
+Kooperation: 2 Threads:   a) Daten berechnen   ==> b) Diese Daten weiter verarbeiten
+
+                  a) Daten produzieren // b) Daten konsumieren
+
+				  Ad-Hoc:   Polling -- teuer // überflüssig
+
+std::condition_variable
+
+KEINE Daten:   Wait  // Blockiert // Idle
+
+ES GIBT Daten: Notify 
+
+
+=========================================================
+Ende
+=========================================================
