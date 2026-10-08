@@ -60,7 +60,7 @@ namespace Literals_Color_Runtime {
     // =====================================================================================
      
     // literal operator ("cooked" version)
-    static Color operator"" _rgb(unsigned long long value) {
+    static Color operator"" _rgb (unsigned long long value) {
 
         if (value > 0xFFFFFF) {
             throw std::runtime_error("literal too large");

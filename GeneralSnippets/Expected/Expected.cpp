@@ -67,13 +67,24 @@ namespace StdExpected {
     //==================================================================================
     // std::expected
 
-    static std::expected<double, std::string> divide(double numerator, double denominator) {
+    static [[nodiscard]]
+    std::expected<double, std::string> divide(double numerator, double denominator) {
 
         if (denominator == 0.0) {
             return std::unexpected{ "Error: Division by zero" };
         }
 
         return std::expected<double, std::string> { numerator / denominator };
+    }
+
+    static [[nodiscard]]
+        std::expected<int, int> divideInt(double numerator, double denominator) {
+
+        if (denominator == 0.0) {
+            return std::unexpected{ -1 };
+        }
+
+        return std::expected<int, int> {  static_cast<int> (numerator / denominator) };
     }
 
     static void test_excepted_01()
@@ -249,7 +260,7 @@ namespace StdExpected {
     static void test_excepted_05()
     {
         auto numerator = 20.0;
-        // auto denominator = 2.5;         // success
+        //auto denominator = 2.5;         // success
         auto denominator = 20.0;     // error
 
         auto result = divide(numerator, denominator)

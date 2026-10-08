@@ -591,3 +591,51 @@ Die wiederholte Anwendung EINES Operators kann man optimieren:
 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9
 
 ===============================================================
+
+noexcept:
+
+Marker: Methoden  ====> Exception Handling:
+
+
+Exception Handling Konzept: 
+
+Code mit Exception Handling wird umfangreicher:
+
+Eine Exception wird in einer Methode NICHT gefangen
+
+==> Exception wird weitergereicht - an die aufrufende Methode
+
+    Stack Unwinding: Kostet Laufzeit
+
+Auf Fehler reagieren:
+
+== Return Codes
+== Exception
+
+C++ 17: Performanz: Meine Mehtode ist safe - no Error: noexcept
+
+ ============> Es wird KEIN Exception Handling Code abgesetzt !!!
+
+Best Practices:
+
+noexcept         // discard
+
+a) getter (wird ohnehin so vom Compiler gehandelt)
+
+b) Methoden, die nur aus Wertzuweisungen bestehen.
+
+b) Verschiebe Operatoren:
+
+// move semantics
+/BigData(BigData&&) noexcept;             // move c'tor
+BigData& operator= (BigData&&) noexcept;  // move assignment
+
+=====================================
+
+UDL:   2432432_kilogramm
+
+       "10:30:40"_uhrzeit   // class Time 
+
+=====================================
+
+Modul-Konzept:   ==> Precompiled Header 

@@ -24,7 +24,7 @@ public:
 
 static void lambda_01_modern()
 {
-    std::vector<int> vec{ 1, 2, 3 };
+    std::vector<int> vec{ 1, 2, 3 }; //  1_km
 
     std::for_each(
         vec.begin(),
